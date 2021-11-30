@@ -1,0 +1,27 @@
+{
+  "name": "wtx-admin",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port 1015",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "ant-design-vue": "^2.2.8",
+    "axios": "^0.20.0-0",
+    "c-scrollbar": "^1.0.1",
+    "mitt": "^3.0.0",
+    "nprogress": "^0.2.0",
+    "qs": "^6.10.1",
+    "vue": "^3.2.16",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.3",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.3.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.2",
+    "vite": "^2.6.4"
+  }
+}
