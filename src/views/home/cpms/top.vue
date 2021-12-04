@@ -36,7 +36,7 @@
                         src="https://cdn.uviewui.com/uview/album/1.jpg"
                         size="30"
                     />
-                    <label class="top-right-user-name">Ranran</label>
+                    <label class="top-right-user-name">{{ userName }}</label>
                 </div>
                 <template #overlay>
                     <a-menu>
@@ -89,7 +89,7 @@ import {
 } from '@ant-design/icons-vue';
 import { ref, onMounted } from 'vue';
 import emitter from '../../../utils/mitt';
-
+import { useStore } from 'vuex';
 // 左侧菜单伸缩
 const collapsed = ref(false)
 const changeColl = () => {
@@ -119,6 +119,8 @@ const changeLang = (e) => {
     langKey.value[0] = e
 }
 
+const store = useStore()
+const userName = store.state.userinfo.USER_Name
 
 </script>
 

@@ -54,11 +54,13 @@
 <script setup >
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { ref, watch, reactive, onMounted } from 'vue';
-import { login } from '../../apis/login'
-import { setStorage, getStorage, setToken } from '../../utils/storage'
-import { message } from 'ant-design-vue'
+import { getStorage } from '../../utils/storage'
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router'
-const router = useRouter()
+
+const route = useRouter()
+
+const store = useStore()
 const remember = ref(false)
 const Login = reactive({
     name: '',
@@ -113,28 +115,15 @@ const loginUser = () => {
     var input = {
         UserName: Login.name,
         Password: Login.pwd,
-        Type: 1
+        Type: 1,
+        remember: remember.value
     }
-    login(input)
-        .then(res => {
-            loading.value = false
-            if (!res.Result) {
-                message.error(res.Info);
-                return
-            }
-            if (remember.value) {
-                setStorage('userId', Login.name)
-                setStorage("USER_INFO", res.Data.userinfo)
-                setToken(res.Data.AccessToken)
-            }
-            router.push('/home')
-            message.success(res.Info, 3)
-        })
-        .catch(err => {
-            console.log(err);
-            loading.value = false
-            message.error(err);
-        })
+    store.dispatch("Login_User", input).then(() => {
+        loading.value = false
+        route.push('/home')
+    }).catch(() => {
+        loading.value = false
+    })
 }
 
 // 记住密码开关

@@ -2,7 +2,8 @@ import $api from '../request'
 
 const LoginAPI = {
   Login: 'Auth/Login',
-  Roles: 'Roles/GetRoleGroupByUserId'
+  Roles: 'Roles/GetRoleGroupByUserId',
+  Menus: 'Meau/GetCurrentUserMeanu'
 }
 
 export function login(account) {
@@ -11,4 +12,7 @@ export function login(account) {
 
 export function getRole(id) {
   return $api.get(LoginAPI.Roles, id)
+}
+export function GetMenu() {
+  return $api.get(LoginAPI.Menus)
 }

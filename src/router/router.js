@@ -1,14 +1,28 @@
 const routes = [
     {
-      path: '/',
+      path:'/',
+      redirect:'/home'
+    },
+    {
+      path: '/login',
       name: 'login',
-      component: () => import('../view/login/login.vue'),    
+      component: () => import('../views/login/login.vue'),    
     },
     {
       path: '/home',
       name: 'home',
-      component: () => import('../view/home/home.vue'),
-    }   
+      component: () => import('../views/home/home.vue'),
+      children:[
+        {
+            path:'main',
+            component:()=>import("../views/Main/Main.vue")
+        }
+      ]
+    },
+    {
+      path:'/:patchMatch(.*)',
+      component:()=>import('../views/notFound/notFound.vue')
+    }  
   ]
   
   export default routes

@@ -1,8 +1,8 @@
 <template>
-    <div>main</div>
+    <div>Content</div>
 </template>
 
-<script setup >
+<script setup>
 
 </script>
 

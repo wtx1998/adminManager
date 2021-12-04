@@ -3,16 +3,26 @@
         <left></left>
         <a-layout>
             <top calss="container-right-top"></top>
-            <a-layout-content calss="container-right-main">Content</a-layout-content>
+            <a-layout-content calss="container-right-main">
+                <Main />
+                <!-- <router-view v-slot="props">
+                    <transition>
+                        <keep-alive>
+                            <component :is="props.Component"></component>
+                        </keep-alive>
+                    </transition>
+                </router-view>-->
+            </a-layout-content>
         </a-layout>
     </a-layout>
 </template>
+
 <script setup>
 
 import left from './cpms/left.vue';
 import top from './cpms/top.vue';
 import Main from './cpms/main.vue';
-import { ref, watch } from 'vue';
+// 绑定对应的store
 
 </script>
 

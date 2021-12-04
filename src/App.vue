@@ -1,4 +1,10 @@
-<script setup lang="ts">
+<script setup>
+import { useStore } from 'vuex';
+import { getStorage, getToken } from './utils/storage'
+const store = useStore()
+store.state.menus = JSON.parse(getStorage("menus"))
+store.state.token = getToken()
+store.state.userinfo = JSON.parse(getStorage("USER_INFO"))
     // setInterval(()=>{
 		// 	    Expires = uni.getStorageSync('ExpiresIn')
 		// 	    AuthTime=uni.getStorageSync('IssueTime')
