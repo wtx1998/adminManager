@@ -6,35 +6,32 @@
         </div>
         <n-scrollbar :style="{ height: menuHeight }">
             <a-menu mode="inline" :selectedKeys="selectKey">
-                <a-menu-item key="index">
+                <a-menu-item key="index" @click="backHome()">
                     <template #icon>
                         <HomeFilled />
                     </template>
                     首页
                 </a-menu-item>
-                <template v-for="(item ) in Menus" :key="item.id">
+                <template v-for="item in Menus" :key="item.id">
                     <a-sub-menu>
                         <template #icon>
-                            <component :is="$antIcons[item.icon]" />
+                            <component :is="item.icon" />
                         </template>
                         <template #title>  {{ item.name }}</template>
                         <template v-for="(sub,sIndex) in item.children" :key="sIndex">
                             <template v-if="sub.children.length==0">
-                                <a-menu-item :key="sub.id">
+                                <a-menu-item :key="sub.id" @click="linkTo(sub)">
                                     <template #icon>
-                                        <component :is="$antIcons[sub.icon]" />
+                                        <component :is="sub.icon" />
                                     </template>
                                     {{ sub.name }}
                                 </a-menu-item>
                             </template>
                             <template v-else>
                                 <a-sub-menu :title="sub.name" :key="sub.id">
-                                    <a-menu-item
-                                        v-for="(child,cIndex) in sub.children"
-                                        :key="child.id"
-                                    >
+                                    <a-menu-item  v-for="child in sub.children"  :key="child.id" @click="linkTo(child)">
                                         <template #icon>
-                                           <component :is="$antIcons[sub.icon]" />
+                                           <component :is="child.icon" />
                                         </template>
                                         {{ child.name }}
                                     </a-menu-item>
@@ -52,6 +49,7 @@ import { ref, onMounted, computed, h } from 'vue';
 import emitter from '../../../utils/mitt';
 import { NScrollbar, NMenu, NIcon } from 'naive-ui';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 import { MailOutlined, QqOutlined, AppstoreOutlined, SettingOutlined, HomeFilled } from '@ant-design/icons-vue';
 import {
     BookOutline as BookIcon,
@@ -74,6 +72,7 @@ const Menus = store.state.menus
 // 菜单样式
 const collapsed = ref(false)
 
+// 重新加载时 重置展开收缩状态
 onMounted(() => {
     emitter.on("changeC", e => {
         collapsed.value = e
@@ -83,7 +82,16 @@ onMounted(() => {
 const emitColl = (e) => {
     emitter.emit("siderColl", e)
 }
-
+const route= useRoute()
+// 跳转
+const linkTo= (e)=>{
+    selectKey.value[0]=e.id
+    route.push("/")
+}
+// 首页
+const backHome=()=>{
+    selectKey.value[0]="index"
+}
 
 </script>
 
