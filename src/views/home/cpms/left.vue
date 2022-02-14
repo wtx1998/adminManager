@@ -12,31 +12,31 @@
                     </template>
                     首页
                 </a-menu-item>
-                <template v-for="(item,   ) in Menus" :key="item.id">
+                <template v-for="(item ) in Menus" :key="item.id">
                     <a-sub-menu>
                         <template #icon>
-                            <AppstoreOutlined />
+                            <component :is="$antIcons[item.icon]" />
                         </template>
-                        <template #title>{{ item.title }}</template>
-                        <template v-for="(sub,sIndex) in item.nodes" :key="sIndex">
-                            <template v-if="sub.nodes == null">
+                        <template #title>  {{ item.name }}</template>
+                        <template v-for="(sub,sIndex) in item.children" :key="sIndex">
+                            <template v-if="sub.children.length==0">
                                 <a-menu-item :key="sub.id">
                                     <template #icon>
-                                        <SettingOutlined />
+                                        <component :is="$antIcons[sub.icon]" />
                                     </template>
-                                    {{ sub.title }}
+                                    {{ sub.name }}
                                 </a-menu-item>
                             </template>
                             <template v-else>
-                                <a-sub-menu :title="sub.title" :key="sub.nodeData.SYSYID">
+                                <a-sub-menu :title="sub.name" :key="sub.id">
                                     <a-menu-item
-                                        v-for="(child,cIndex) in sub.nodes"
+                                        v-for="(child,cIndex) in sub.children"
                                         :key="child.id"
                                     >
                                         <template #icon>
-                                            <MailOutlined />
+                                           <component :is="$antIcons[sub.icon]" />
                                         </template>
-                                        {{ child.title }}
+                                        {{ child.name }}
                                     </a-menu-item>
                                 </a-sub-menu>
                             </template>

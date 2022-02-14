@@ -120,7 +120,7 @@ const changeLang = (e) => {
 }
 
 const store = useStore()
-const userName = store.state.userinfo.USER_Name
+const userName = store.state.userinfo?.USER_Name
 
 </script>
 

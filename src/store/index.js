@@ -1,7 +1,8 @@
 import {createStore} from 'vuex';
 import { login,GetMenu } from '../apis/login'
 import { message } from 'ant-design-vue'
-import {setStorage,setToken} from '../utils/storage';
+import {setStorage,setToken,getToken,getStorage} from '../utils/storage';
+import ExcuteMenu from '../utils/menu.js';
 
 const store=createStore({
     state(){
@@ -21,11 +22,13 @@ const store=createStore({
        SET_USERINFO(state,payload){
            state.userinfo=payload
        },
-       SET_MENU(state,payload){          
-           state.menus=payload
+       SET_MENU(state,payload){
+        state.menus= ExcuteMenu(payload)
+        //    state.menus=payload
        }
     },
     actions:{
+        // 登录用户
         Login_User({commit,dispatch},payload){
             return new Promise((reslove,reject)=>{
                 var data={
@@ -56,6 +59,7 @@ const store=createStore({
                 })
             })          
         },
+        // 用户的菜单
         login_Menu({commit}){
             return new Promise((reslove,reject)=>{
                 GetMenu()
@@ -65,7 +69,27 @@ const store=createStore({
                     reslove()
                 }).catch(()=>{reject()})
             })
+        },
+        // 初始化token
+        LoginLocal(){
+            const token=getToken()
+            if(token){
+                this.commit('SET_TOKEN',token)
+            }
+            const menus=getStorage("menus")
+            if(menus){
+                this.commit('SET_MENU',JSON.parse(menus))
+            }
+            const userinfo=getStorage("USER_INFO")
+            if(userinfo){
+                this.commit('SET_USERINFO',JSON.parse(userinfo))
+            }
         }
     }
 })
+
+export function setupLogin(){
+    store.dispatch('LoginLocal')
+}
+
 export default store

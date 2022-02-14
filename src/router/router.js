@@ -11,16 +11,10 @@ const routes = [
     {
       path: '/home',
       name: 'home',
-      component: () => import('../views/home/home.vue'),
-      children:[
-        {
-            path:'main',
-            component:()=>import("../views/Main/Main.vue")
-        }
-      ]
+      component: () => import('../views/home/home.vue')
     },
     {
-      path:'/:patchMatch(.*)',
+      path:'/:patchMatch(.*)*',// 未在路由中找到对应的页面
       component:()=>import('../views/notFound/notFound.vue')
     }  
   ]
