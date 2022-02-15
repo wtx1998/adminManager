@@ -15,7 +15,7 @@ export default function ExcuteMenu(menus){
     });
     return VueMenu
 }
-
+  
 function ChildrenNode(nodes){
     if(nodes==null){
         return []
@@ -28,7 +28,15 @@ function ChildrenNode(nodes){
         sub.icon=getIcon()
         sub.nodeIndex=x.nodeIndex
         if(x.nodes==null){
-            sub.src=x.nodeData?.outsideurl
+            if(x.nodeData?.outsideurl?.indexOf('report')>-1){
+                sub.src="/dashboard"
+            }
+            if(x.nodeData?.outsideurl?.indexOf('program')>-1){
+                sub.src="/home/config"
+            }
+            if(x.nodeData?.outsideurl?.indexOf('form')>-1){
+                sub.src="/home/set"
+            }
             sub.children=[]
         }else{
             sub.children=ChildrenNode(x.nodes)

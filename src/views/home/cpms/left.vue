@@ -47,18 +47,10 @@
 <script setup >
 import { ref, onMounted, computed, h } from 'vue';
 import emitter from '../../../utils/mitt';
-import { NScrollbar, NMenu, NIcon } from 'naive-ui';
+import { NScrollbar, NIcon } from 'naive-ui';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
-import { MailOutlined, QqOutlined, AppstoreOutlined, SettingOutlined, HomeFilled } from '@ant-design/icons-vue';
-import {
-    BookOutline as BookIcon,
-    PersonOutline as PersonIcon,
-    WineOutline as WineIcon
-} from '@vicons/ionicons5'
-function renderIcon(icon) {
-    return () => h(NIcon, null, { default: () => h(icon) })
-}
+import {  HomeFilled } from '@ant-design/icons-vue';
 const store = useStore()
 const menuHeight = computed(() => {
     return (document.body.clientHeight - 99) + 'px'
@@ -86,7 +78,9 @@ const route= useRoute()
 // 跳转
 const linkTo= (e)=>{
     selectKey.value[0]=e.id
-    route.push("/")
+console.log(route);
+
+    route.push(e.src)
 }
 // 首页
 const backHome=()=>{
