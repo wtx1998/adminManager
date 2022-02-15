@@ -10,13 +10,13 @@ export default function ExcuteMenu(menus){
         // 随机图标
         SubMenu.icon=getIcon()
         SubMenu.nodeIndex=item.nodeIndex
-        SubMenu.children=ChildrenNode(item.nodes)
+        SubMenu.children=ChildrenNode(item.nodes,item)
         VueMenu.push(SubMenu)
     });
     return VueMenu
 }
   
-function ChildrenNode(nodes){
+function ChildrenNode(nodes,parent){
     if(nodes==null){
         return []
     }
@@ -27,19 +27,18 @@ function ChildrenNode(nodes){
         sub.name=x.title
         sub.icon=getIcon()
         sub.nodeIndex=x.nodeIndex
+        sub.parentName=parent.title
         if(x.nodes==null){
-            if(x.nodeData?.outsideurl?.indexOf('report')>-1){
-                sub.src="/dashboard"
-            }
-            if(x.nodeData?.outsideurl?.indexOf('program')>-1){
+            if(x.nodeData?.outsideurl?.indexOf('programid')>-1){
                 sub.src="/home/config"
-            }
-            if(x.nodeData?.outsideurl?.indexOf('form')>-1){
+            }else if(x.nodeData?.outsideurl?.indexOf('form')>-1){
                 sub.src="/home/set"
+            }else{
+                sub.src="/dashboard"
             }
             sub.children=[]
         }else{
-            sub.children=ChildrenNode(x.nodes)
+            sub.children=ChildrenNode(x.nodes,x)
         }
         cMenu.push(sub)      
     })

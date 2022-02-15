@@ -49,7 +49,7 @@ import { ref, onMounted, computed, h } from 'vue';
 import emitter from '../../../utils/mitt';
 import { NScrollbar, NIcon } from 'naive-ui';
 import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import {  HomeFilled } from '@ant-design/icons-vue';
 const store = useStore()
 const menuHeight = computed(() => {
@@ -74,13 +74,11 @@ onMounted(() => {
 const emitColl = (e) => {
     emitter.emit("siderColl", e)
 }
-const route= useRoute()
+const router= useRouter()
 // 跳转
 const linkTo= (e)=>{
     selectKey.value[0]=e.id
-console.log(route);
-
-    route.push(e.src)
+    router.push(e.src)
 }
 // 首页
 const backHome=()=>{
